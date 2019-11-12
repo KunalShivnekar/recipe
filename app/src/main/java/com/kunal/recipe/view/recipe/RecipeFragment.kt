@@ -1,17 +1,15 @@
 package com.kunal.recipe.view.recipe
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.kunal.recipe.R
 import com.kunal.recipe.data.base.Response
 import com.kunal.recipe.model.Recipe
@@ -54,7 +52,7 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
         viewModel.getRecipe().observe(this, Observer<List<Recipe>> {
             it?.let {
                 hideLoader()
-                recipeAdapter.contentList = it
+                recipeAdapter.submitList(it)
             }
         })
 

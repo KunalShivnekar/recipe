@@ -1,22 +1,18 @@
 package com.kunal.recipe.view.details
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-
 import com.kunal.recipe.R
 import com.kunal.recipe.model.Ingredient
 import com.kunal.recipe.model.Recipe
 import com.kunal.recipe.model.Step
 import com.kunal.recipe.view.base.BaseFragment
-import kotlinx.android.synthetic.main.recipe_details_fragment.view.ingredients
-import kotlinx.android.synthetic.main.recipe_details_fragment.view.stepsList
+import kotlinx.android.synthetic.main.recipe_details_fragment.view.*
 
 private const val ARG_RECIPE = "ARG_RECIPE"
 
@@ -46,7 +42,7 @@ class RecipeDetailsFragment : BaseFragment(), RecipeStepsAdapter.OnRecipeStepSel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.ingredients.setOnClickListener { listener?.showRecipeIngredients(recipe.ingredients) }
-        recipeStepsAdapter.contentList = recipe.steps
+        recipeStepsAdapter.submitList(recipe.steps)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
