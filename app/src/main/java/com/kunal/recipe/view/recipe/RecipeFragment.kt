@@ -49,14 +49,14 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
     override fun onStart() {
         super.onStart()
         showLoader()
-        viewModel.getRecipe().observe(this, Observer<List<Recipe>> {
+        viewModel.recipeLiveData.observe(this, Observer<List<Recipe>> {
             it?.let {
                 hideLoader()
                 recipeAdapter.submitList(it)
             }
         })
 
-        viewModel.getError().observe(this, Observer<Response> {
+        viewModel.error.observe(this, Observer<Response> {
             it?.let {
                 hideLoader()
                 showError(it.description)

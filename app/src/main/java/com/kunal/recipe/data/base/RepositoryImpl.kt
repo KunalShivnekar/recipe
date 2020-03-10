@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
  */
 abstract class RepositoryImpl<T> : Repository<T> {
 
-    override fun getItems(): LiveData<T> {
+    override suspend fun getItems(): LiveData<T> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

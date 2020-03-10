@@ -7,5 +7,5 @@ import androidx.lifecycle.LiveData
  */
 interface Repository<T> {
 
-    fun getItems(): LiveData<T>
+    suspend fun getItems(): LiveData<T>
 }

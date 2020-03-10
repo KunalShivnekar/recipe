@@ -2,26 +2,30 @@ package com.kunal.recipe.view.recipe
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.kunal.recipe.data.base.Response
 import com.kunal.recipe.data.recipe.RecipeRepository
 import com.kunal.recipe.model.Recipe
 import com.kunal.recipe.view.base.BaseViewModelImpl
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class RecipeViewModel @Inject constructor(private val recipeRepository: RecipeRepository) :
     BaseViewModelImpl() {
 
-    private var recipeLiveData: MutableLiveData<List<Recipe>> = MutableLiveData()
+    private var _recipeLiveData: MutableLiveData<List<Recipe>> = MutableLiveData()
+
+    val recipeLiveData: LiveData<List<Recipe>>
+        get() = _recipeLiveData
+
+    val error: LiveData<Response>
+        get() = recipeRepository.error
 
     override fun onCreate() {
         super.onCreate()
-        val data = recipeRepository.getItems()
-        data.observeForever {
-            recipeLiveData.value = it
+        viewModelScope.launch {
+            _recipeLiveData.value = recipeRepository.getItems().value
         }
     }
 
-    fun getRecipe(): LiveData<List<Recipe>> = recipeLiveData
-
-    fun getError(): LiveData<Response> = recipeRepository.error
 }

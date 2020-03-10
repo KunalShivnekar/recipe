@@ -10,5 +10,5 @@ import retrofit2.http.GET
  */
 interface RemoteDataSource {
     @GET("topher/2017/May/59121517_baking/baking.json")
-    fun getItems(): Call<List<Recipe>>
+    suspend fun getItems(): List<Recipe>
 }
