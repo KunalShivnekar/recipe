@@ -7,5 +7,13 @@ import androidx.lifecycle.LiveData
  */
 interface Repository<T> {
 
-    suspend fun getItems(): LiveData<T>
+    suspend fun getItems(forceUpdate: Boolean = false): Response<List<T>>
+
+    suspend fun getItem(itemId:String): Response<T>
+
+    suspend fun updateItem(item:T)
+
+    suspend fun deleteItem(itemId:String)
+
+    suspend fun deleteItems()
 }

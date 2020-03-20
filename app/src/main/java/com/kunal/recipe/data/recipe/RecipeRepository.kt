@@ -8,6 +8,4 @@ import com.kunal.recipe.model.Recipe
 /**
  * Created by kunal on 2019-08-22.
  */
-interface RecipeRepository : Repository<List<Recipe>> {
-    val error: LiveData<Response>
-}
+interface RecipeRepository : Repository<Recipe>

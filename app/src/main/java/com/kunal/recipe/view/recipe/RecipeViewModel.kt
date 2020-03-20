@@ -3,7 +3,8 @@ package com.kunal.recipe.view.recipe
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.kunal.recipe.data.base.Response
+import com.kunal.recipe.data.base.Response.Error
+import com.kunal.recipe.data.base.Response.Success
 import com.kunal.recipe.data.recipe.RecipeRepository
 import com.kunal.recipe.model.Recipe
 import com.kunal.recipe.view.base.BaseViewModelImpl
@@ -18,13 +19,19 @@ class RecipeViewModel @Inject constructor(private val recipeRepository: RecipeRe
     val recipeLiveData: LiveData<List<Recipe>>
         get() = _recipeLiveData
 
-    val error: LiveData<Response>
-        get() = recipeRepository.error
+    private var _error: MutableLiveData<Error> = MutableLiveData()
 
-    override fun onCreate() {
-        super.onCreate()
+    val error: LiveData<Error>
+        get() = _error
+
+    override fun onStart() {
+        super.onStart()
         viewModelScope.launch {
-            _recipeLiveData.value = recipeRepository.getItems().value
+            val response = recipeRepository.getItems()
+            if (response is Success)
+                _recipeLiveData.value = response.data
+            else if (response is Error)
+                _error.value = response
         }
     }
 

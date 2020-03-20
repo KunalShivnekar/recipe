@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kunal.recipe.R
-import com.kunal.recipe.data.base.Response
+import com.kunal.recipe.data.base.Response.Error
 import com.kunal.recipe.model.Recipe
 import com.kunal.recipe.view.base.BaseFragment
 
@@ -56,7 +56,7 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
             }
         })
 
-        viewModel.error.observe(this, Observer<Response> {
+        viewModel.error.observe(this, Observer<Error> {
             it?.let {
                 hideLoader()
                 showError(it.description)
