@@ -1,36 +1,24 @@
 package com.kunal.recipe.view.base
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProvider
-
-import com.kunal.recipe.config.RecipeApplication
-import com.kunal.recipe.di.components.ViewComponent
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 /**
  * Created by kunal on 2019-08-20.
  */
-abstract class BaseFragment : Fragment(), BaseView {
+abstract class BaseFragment : DaggerFragment(), BaseView {
 
     protected lateinit var observer: LifecycleObserver
     private lateinit var progressDialog: ProgressDialog
-    protected lateinit var injector: ViewComponent
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity?.let {
-            injector =
-                (it.application as RecipeApplication).dataComponent.viewComponentBuilder.build()
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,23 +1,20 @@
 package com.kunal.recipe.view.step
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.viewModels
 import com.kunal.recipe.R
 import com.kunal.recipe.model.Step
 import com.kunal.recipe.view.base.BaseFragment
-import kotlinx.android.synthetic.main.step_fragment.view.description
-import kotlinx.android.synthetic.main.step_fragment.view.shortDescription
-import kotlinx.android.synthetic.main.step_fragment.view.video
+import kotlinx.android.synthetic.main.step_fragment.view.*
 
 private const val ARG_STEP = "ARG_STEP"
 
 class StepFragment : BaseFragment() {
 
-    private lateinit var viewModel: StepViewModel
+    private  val viewModel by viewModels<StepViewModel> {viewModelFactory}
 
     private val step: Step by lazy { requireNotNull(arguments).getParcelable(ARG_STEP) as Step }
 
@@ -44,7 +41,6 @@ class StepFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(StepViewModel::class.java)
         attachObserver(viewModel)
     }
 

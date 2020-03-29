@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kunal.recipe.R
 import com.kunal.recipe.model.Ingredient
@@ -18,7 +18,7 @@ private const val ARG_RECIPE = "ARG_RECIPE"
 
 class RecipeDetailsFragment : BaseFragment(), RecipeStepsAdapter.OnRecipeStepSelectedListener {
 
-    private lateinit var viewModel: RecipeDetailsViewModel
+    private val viewModel by viewModels<RecipeDetailsViewModel> { viewModelFactory }
 
     private val recipeStepsAdapter = RecipeStepsAdapter(this)
 
@@ -47,7 +47,6 @@ class RecipeDetailsFragment : BaseFragment(), RecipeStepsAdapter.OnRecipeStepSel
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RecipeDetailsViewModel::class.java)
         attachObserver(viewModel)
     }
 

@@ -7,7 +7,7 @@ interface DataSource<T> {
 
     interface GetItemsCallback<T> {
 
-        fun onFailure(response: Response)
+        fun onFailure(response: Response<T>)
 
         fun onSuccess(data: List<T>)
     }

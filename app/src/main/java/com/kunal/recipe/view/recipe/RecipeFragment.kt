@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +21,7 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
         fun newInstance() = RecipeFragment()
     }
 
-    private lateinit var viewModel: RecipeViewModel
+    private val viewModel by viewModels<RecipeViewModel> { viewModelFactory }
 
     private val recipeAdapter = RecipeAdapter(this)
 
@@ -67,7 +67,6 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        injector.inject(this)
         if (context is OnRecipeInteractionListener) {
             listener = context
         } else {
@@ -82,7 +81,6 @@ class RecipeFragment : BaseFragment(), RecipeAdapter.OnRecipeSelectedListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(RecipeViewModel::class.java)
         attachObserver(viewModel)
     }
 

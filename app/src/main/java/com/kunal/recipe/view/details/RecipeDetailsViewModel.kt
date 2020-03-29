@@ -1,8 +1,6 @@
 package com.kunal.recipe.view.details
 
-import androidx.lifecycle.ViewModel;
 import com.kunal.recipe.view.base.BaseViewModelImpl
+import javax.inject.Inject
 
-class RecipeDetailsViewModel : BaseViewModelImpl() {
-
-}
+class RecipeDetailsViewModel @Inject constructor() : BaseViewModelImpl()

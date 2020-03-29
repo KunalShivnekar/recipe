@@ -1,7 +1,11 @@
 package com.kunal.recipe.di.modules
 
-import com.kunal.recipe.data.recipe.*
-import com.kunal.recipe.di.components.ViewComponent
+import com.google.gson.Gson
+import com.kunal.recipe.data.recipe.RecipeRepository
+import com.kunal.recipe.data.recipe.RecipeRepositoryImpl
+import com.kunal.recipe.data.recipe.RemoteDataSource
+import com.kunal.recipe.network.http.HttpClient
+import com.kunal.recipe.network.http.HttpClientImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -11,7 +15,7 @@ import javax.inject.Singleton
 /**
  * Created by kunal on 2019-08-20.
  */
-@Module(subcomponents = [ViewComponent::class])
+@Module
 class DataModule {
 
     @Provides
@@ -29,5 +33,12 @@ class DataModule {
 
     @Provides
     fun getRecipeRemoteDataSource(retrofit: Retrofit):RemoteDataSource = retrofit.create(RemoteDataSource::class.java)
+
+
+    @Provides
+    fun getHttpApiClient(httpClientImpl: HttpClientImpl): HttpClient = httpClientImpl
+
+    @Provides
+    fun getGson(): Gson = Gson()
 
 }
